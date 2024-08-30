@@ -1,1 +1,1 @@
-# 2-Rs
+# Forcasting stocks - begginer friendly application.
