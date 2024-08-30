@@ -1,0 +1,155 @@
+/* General styles */
+body {
+    font-family: 'Georgia', serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #000000, #434343); /* Gradient background */
+    color: #ffffff;
+}
+
+/* Navbar styles */
+.nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(137, 203, 141, 0.9); /* Semi-transparent background */
+    color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+}
+
+.nav .start {
+    font-family: 'Merriweather', serif;
+    letter-spacing: 2px;
+    font-size: 32px;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for emphasis */
+}
+
+.nav .stock-input {
+    display: flex;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.nav .stock-input input {
+    width: 220px;
+    height: 45px;
+    font-size: 18px;
+    padding: 0 12px;
+    border: 2px solid #E4002B; /* Border for input */
+    border-radius: 5px 0 0 5px;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.nav .stock-input button {
+    width: 120px;
+    height: 45px;
+    font-size: 18px;
+    background-color: #E4002B;
+    color: #ffffff;
+    border: 2px solid #E4002B;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+}
+
+.nav .stock-input button:hover {
+    background-color: #ff00b7;
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.nav .date-input {
+    height: 45px;
+    font-size: 18px;
+    margin-left: auto;
+    margin-bottom: 20px;
+    border: 2px solid #E4002B; /* Border for input */
+    border-radius: 5px;
+}
+
+.nav .selectors {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.nav .selectors button {
+    width: 160px;
+    height: 45px;
+    font-size: 18px;
+    margin-right: 20px;
+    background-color: #E4002B;
+    color: #ffffff;
+    border: 2px solid #E4002B;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+}
+
+.nav .selectors button:hover {
+    background-color: #ff00b7;
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.nav .selectors input {
+    width: 220px;
+    height: 45px;
+    font-size: 18px;
+    margin-right: 20px;
+    padding: 0 12px;
+    border: 2px solid #E4002B; /* Border for input */
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Content styles */
+.content .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Box shadow for depth */
+}
+
+.content .logo {
+    height: 60px;
+    margin-right: 15px;
+    padding-right: 15px;
+}
+
+.content .company-name {
+    margin-left: 15px;
+    padding-left: 15px;
+    font-size: 2em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow for emphasis */
+}
+
+.content #description {
+    width: 80%;
+    padding: 30px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 18px;
+    line-height: 1.6;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    border-radius: 10px;
+}
+
+#graphs-content, #main-content, #forecast-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.content {
+    background-color: #000; /* Background color for content area */
+    min-height: 100vh;
+    padding: 20px; /* Added padding */
+}
