@@ -1,56 +1,52 @@
-
-# Stock Prediction Web Application using Dash and Machine Learning
-
-This project provides a web application designed to help stock market investors visualize company stock data and make predictions based on machine learning models. Built with the Dash framework, this tool offers an interactive user interface for analyzing and forecasting stock prices.
+ Stock Prediction Web Application Documentation
 
 ## Project Structure
+The project is organized in a modular structure to facilitate ease of maintenance and scalability. The main components include:
+- **app.py**: The main entry point of the Streamlit application, handling user inputs, data fetching, and displaying results.
+- **model.py**: Contains the `lstm_prediction` function, which implements the LSTM model for stock price prediction.
+- **requirements.txt**: Lists all necessary dependencies required to run the application.
+- **data/**: (Optional) A directory for storing any sample datasets or assets used in the project.
+- **assets/**: (Optional) Contains any images, logos, or additional resources for the web application.
 
-The project structure consists of the following files:
-
-1. `app.py` - The main application file containing the Dash app instance, layout, and callbacks. This file sets up the web interface and handles user interactions.
-2. `model.py` - Contains functions to fetch stock data using the yfinance library and to train and predict stock prices using machine learning algorithms.
-3. `assets/styles.css` -  Provides custom styling for the web application, enhancing its visual appeal.
-4. `requirements.txt` - Lists all the dependencies required to run the application.
-
-## Features 
-
-Stock Data Visualization: Allows users to input a company stock code and a date range to visualize historical stock prices.
-Stock Price Prediction: Utilizes machine learning models to forecast future stock prices based on historical data.
-Interactive User Interface: Built with Dash, offering a seamless user experience with options to view historical data, indicators, and forecasts.
+## Features
+- **User Input Interface**: Users can input stock codes, specify date ranges, and select the number of days for forecasting via a user-friendly sidebar.
+- **Data Visualization**: Historical stock prices are visualized using interactive charts created with Plotly, allowing users to analyze trends and movements effectively.
+- **LSTM-Based Forecasting**: The application employs an LSTM model to predict future stock prices based on historical data, providing insights into potential market trends.
+- **Dynamic Forecasting**: Users can adjust the forecast period, and the application will generate updated predictions and visualizations accordingly.
 
 ## Usage
-
-1. Install Dependencies: Ensure you have the required packages installed. 
-You can install them using the following command: pip install -r requirements.txt
-
-2. Run the Application: Start the Dash application by running app.py:python app.py
-
-3. Interact with the Application:
-Stock Code Input: Enter the stock code of the company you want to analyze.
-Date Range Picker: Select the start and end dates for the historical data you want to visualize.
-Stock Price Button: View the stock price data for the selected date range.
-Indicators Button: View technical indicators such as Exponential Moving Averages.
-Forecast Button: Get predictions for future stock prices based on historical data.
-
+To run the Stock Prediction Web Application:
+1. Clone the repository to your local machine.
+2. Navigate to the project directory.
+3. Install the required dependencies using the command:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Start the Streamlit application by running:
+   ```bash
+   streamlit run app.py
+   ```
+5. Access the application in your web browser at `http://localhost:8501`.
+6. Use the sidebar to enter the desired stock code, date range, and forecast days, then click "Fetch Data" to load the stock data. After fetching, click "Forecast Stock Price" to view the predictions.
 
 ## Dependencies
+The project requires the following Python libraries:
+- `numpy`: For numerical computations.
+- `pandas`: For data manipulation and analysis.
+- `yfinance`: To fetch historical stock price data from Yahoo Finance.
+- `streamlit`: To create the web application interface.
+- `plotly`: For interactive data visualization.
+- `tensorflow`: To build and train the LSTM model.
+- `scikit-learn`: For data preprocessing utilities.
 
-The following Python libraries are required to run the application:
-
-Dash: For building the web application interface.
-yfinance: For fetching stock data.
-pandas: For data manipulation and analysis.
-scikit-learn: For machine learning algorithms.
-plotly: For interactive data visualizations.
-tensorflow: For training LSTM models.
-Install these dependencies using the command : pip install -r requirements.txt
+Ensure all dependencies are installed by running the command in the **Usage** section.
 
 ## Future Enhancements
-
-1.Incorporate additional machine learning algorithms for better predictions.
-2.Add more technical indicators and analytics tools.
-3.Implement user authentication and personalized dashboards.
+- **User Authentication**: Implement user login and registration functionality to save user preferences and forecasting history.
+- **Model Optimization**: Experiment with different hyperparameters and architectures to improve the accuracy of the LSTM model.
+- **Additional Features**: Include technical indicators and other data sources for enhanced prediction capabilities.
+- **Historical Comparison**: Allow users to compare predicted prices against actual historical data for better analysis.
+- **Mobile Responsiveness**: Optimize the UI for mobile devices to enhance accessibility and usability.
 
 ## Conclusion
-
-This project provides a simple yet powerful tool for investors to visualize and analyze stock data of a specific company using machine learning models. It is a great project for beginners to learn about web application development, data visualization, and machine learning in Python.
+The Stock Prediction Web Application leverages machine learning techniques to provide users with valuable insights into stock market trends through historical data analysis and future price predictions. By combining user-friendly design with powerful data visualization and forecasting capabilities, the application serves as an effective tool for stock market investors. With potential future enhancements, this project can evolve into a more robust platform for financial analysis and decision-making.
