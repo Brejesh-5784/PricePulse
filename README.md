@@ -78,6 +78,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **yfinance**: For providing easy access to Yahoo Finance data.
 - **TensorFlow/Keras**: For enabling LSTM-based stock price prediction.
 - **Matplotlib**: For plotting and visualizing the data.
-```
+
 
 
