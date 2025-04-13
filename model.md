@@ -52,6 +52,3 @@ Feel free to fork this repository, make improvements, and submit pull requests.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
-
-This plain text version can be directly copied into your README file. Let me know if you need any further changes!
