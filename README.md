@@ -80,10 +80,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Matplotlib**: For plotting and visualizing the data.
 ```
 
-### Notes:
-1. Replace the link `https://github.com/yourusername/stock-forecasting-dashboard.git` with the actual URL of your repository.
-2. Ensure that you have a `requirements.txt` file listing the required packages for the project. You can generate it using:
-   ```bash
-   pip freeze > requirements.txt
-   ```
 
