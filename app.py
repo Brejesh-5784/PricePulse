@@ -1,62 +1,46 @@
+# app.py
 import streamlit as st
-import pandas as pd
 import yfinance as yf
-from plotly import graph_objs as go
-from datetime import datetime as dt
-
-# Import the LSTM prediction function from the model.py file
+import pandas as pd
+import matplotlib.pyplot as plt
 from model import lstm_prediction
 
-# Streamlit App Title and Config
-st.set_page_config(page_title="Stock Forecasting App", layout="wide")
-st.markdown("<h1 style='text-align: center; color: #4B7BE5;'>Stock Forecasting Dashboard</h1>", unsafe_allow_html=True)
+st.set_page_config(page_title="📈 Stock Forecasting Dashboard", layout="centered")
+st.title("📈 Stock Forecasting Dashboard")
 
-# Sidebar for User Inputs
-st.sidebar.title("Stock Data Inputs")
-stock_code = st.sidebar.text_input('Enter Stock Code:', 'AAPL')
-start_date = st.sidebar.date_input('Start Date', dt(2023, 1, 1))
-end_date = st.sidebar.date_input('End Date', dt.now())
-forecast_days = st.sidebar.slider('Forecast Days', 1, 30, 7)
-
-# Initialize session state for storing the fetched data
-if 'df' not in st.session_state:
-    st.session_state['df'] = None
+# Input section
+stock_code = st.text_input("Enter Stock Ticker (e.g., AAPL, MSFT, GOOGL)", value="AAPL").upper()
+forecast_days = st.slider("Select Forecast Period (Days)", min_value=5, max_value=30, value=10)
 
 # Fetch stock data
-if st.sidebar.button('Fetch Data'):
-    df = yf.download(stock_code, start=start_date, end=end_date)
-    
-    if df.empty:
-        st.error(f"No data found for {stock_code}. Please try a different stock code.")
-    else:
-        st.success(f"Data fetched for {stock_code} from {start_date} to {end_date}.")
-        st.session_state['df'] = df  # Save the data to session state
-        
-        # Display stock data
-        st.write(f"Stock data for {stock_code}:")
-        st.dataframe(df.tail())
+@st.cache_data(show_spinner=False)
+def fetch_stock_data(ticker):
+    df = yf.download(ticker, start="2015-01-01", progress=False, threads=False, timeout=10)
+    if df.empty or "Close" not in df.columns:
+        raise ValueError("No data found for this ticker.")
+    df = df[["Close"]].dropna()
+    return df
 
-        # Plot the closing prices
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=df.index, y=df['Close'], mode='lines', name='Close Price', line=dict(color='#4B7BE5')))
-        fig.update_layout(title=f"Closing Prices for {stock_code}", xaxis_title='Date', yaxis_title='Price (USD)', 
-                          template='plotly_white')
-        st.plotly_chart(fig, use_container_width=True)
-
-# Forecast the stock prices
-if st.sidebar.button('Forecast Stock Price'):
-    if st.session_state['df'] is not None and not st.session_state['df'].empty:
-        df = st.session_state['df']  # Get the stored data
-        
-        # Perform LSTM Prediction using the function from model.py
+# Predict and plot
+if st.button("🔍 Forecast"):
+    try:
+        df = fetch_stock_data(stock_code)
         predictions, future_dates = lstm_prediction(df, forecast_days)
-        
-        # Plot the forecasted prices
-        fig_forecast = go.Figure()
-        fig_forecast.add_trace(go.Scatter(x=df.index, y=df['Close'], mode='lines', name='Historical Prices'))
-        fig_forecast.add_trace(go.Scatter(x=future_dates, y=predictions.flatten(), mode='lines', name='Predicted Prices', line=dict(color='red')))
-        fig_forecast.update_layout(title=f"Predicted Closing Prices for {stock_code}", xaxis_title='Date', yaxis_title='Price (USD)', 
-                                   template='plotly_white')
-        st.plotly_chart(fig_forecast, use_container_width=True)
-    else:
-        st.error("Please fetch data before forecasting.")
+
+        # Plot the results
+        fig, ax = plt.subplots(figsize=(10, 4))
+        ax.plot(df.index[-100:], df["Close"].values[-100:], label="Historical")
+        ax.plot(future_dates, predictions, label="Forecast", linestyle='--', color="green")
+        ax.set_title(f"{stock_code} Stock Price Forecast")
+        ax.set_xlabel("Date")
+        ax.set_ylabel("Price")
+        ax.legend()
+        st.pyplot(fig)
+
+        # Show table
+        forecast_df = pd.DataFrame({"Date": future_dates, "Predicted Price": predictions.flatten()})
+        forecast_df.set_index("Date", inplace=True)
+        st.dataframe(forecast_df)
+
+    except Exception as e:
+        st.error(f"❌ Error: {e}")
