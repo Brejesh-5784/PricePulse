@@ -1,53 +1,57 @@
-### Documentation for LSTM Prediction Function
 
-#### Overview
-The `lstm_prediction` function is designed to train a Long Short-Term Memory (LSTM) model on historical stock price data and generate predictions for future prices. It employs data preprocessing techniques to prepare the data, constructs an LSTM model, and utilizes it to forecast stock prices over a specified period.
 
-#### Function Definition
 
-```python
-def lstm_prediction(df, forecast_days):
-```
+# Stock Price Prediction using LSTM
 
-#### Parameters
-- **df (pd.DataFrame)**: A Pandas DataFrame containing historical stock data, specifically with a 'Close' column representing the closing prices of the stock.
-- **forecast_days (int)**: An integer indicating the number of future days for which stock prices should be predicted.
+This project leverages **Long Short-Term Memory (LSTM)**, a type of Recurrent Neural Network (RNN), to predict stock prices based on historical data. The model is trained using historical stock price data and is capable of predicting future stock prices over a user-defined number of days.
 
-#### Returns
-- **predictions (np.array)**: An array containing the predicted stock prices for the specified forecast period.
-- **future_dates (list)**: A list of dates corresponding to the forecasted stock prices.
+## Features
+- **Data Fetching**: Fetches historical stock data using the `yfinance` library.
+- **LSTM Model**: Uses an LSTM model to train and predict stock prices.
+- **Future Predictions**: Predicts stock prices for a given number of future days.
+- **Data Preprocessing**: Scales the stock data using MinMaxScaler to prepare for LSTM training.
 
-#### Function Workflow
+## How It Works
 
-1. **Data Preprocessing**:
-   - The function first extracts the 'Close' prices from the input DataFrame.
-   - It then initializes a `MinMaxScaler` to scale the price data to a range of 0 to 1, enhancing the model's training efficiency.
+### 1. Fetch Stock Data:
+The `fetch_stock_data(ticker)` function downloads historical stock data for a given stock ticker using `yfinance`. The function retrieves data from **2015-01-01** and extracts the 'Close' price for training. If no data is found, an error is raised.
 
-2. **Training Data Preparation**:
-   - A look-back window of 60 days is used to create training samples:
-     - `X_train`: A collection of input sequences (60 days of closing prices).
-     - `y_train`: The corresponding output values (the next day's closing price).
-   - The data is reshaped to meet the input requirements of the LSTM model.
+### 2. LSTM Model Setup:
+The `lstm_prediction(df, forecast_days)` function takes in the stock data (`df`) and a desired number of forecast days (`forecast_days`). The data is scaled using **MinMaxScaler** to normalize the values between 0 and 1, which is required by the LSTM model.
 
-3. **Model Construction**:
-   - A Sequential LSTM model is built:
-     - Two LSTM layers with 50 units each, where the first layer returns sequences for the second layer.
-     - A Dense layer is added as the output layer to predict a single value (the closing price).
-   - The model is compiled using the Adam optimizer and mean squared error loss function.
+- **Look-back Window**: The LSTM model is trained with a look-back window of 100 days. This means that the model considers the past 100 days of stock data to predict the next day's stock price.
+- **Model Architecture**: The model is created using two **LSTM layers** followed by a **Dense layer** to output the predicted price.
 
-4. **Model Training**:
-   - The model is trained on the prepared training data for 20 epochs with a batch size of 32.
+### 3. Training the Model:
+- The data is split into training sequences where each sequence consists of 100 past days of stock prices.
+- The model is compiled with the **Adam optimizer** and trained using the **Mean Squared Error (MSE)** loss function.
 
-5. **Price Prediction**:
-   - The function prepares to predict future prices by using the last 60 days of scaled data.
-   - For each day in the forecast period, the model predicts the next closing price and updates the sliding window with the new prediction.
-   - This process continues for the specified number of forecast days.
+### 4. Prediction:
+After training, the model predicts stock prices for the given number of forecast days. The predictions are transformed back to the original price range using the inverse scaling. The forecasted dates are computed based on the last date of the stock data.
 
-6. **Inverse Scaling**:
-   - The predicted stock prices are inverse scaled to their original values using the same `MinMaxScaler`.
+### 5. Output:
+The function returns:
+- **Predictions**: The predicted stock prices for the given forecast days.
+- **Future Dates**: A list of future dates corresponding to the predicted prices.
 
-7. **Future Date Generation**:
-   - The function computes future dates for the forecasted prices by adding days to the last date in the input DataFrame.
+## Technologies Used
+- **Python**: Programming language for implementing the model.
+- **TensorFlow/Keras**: Framework for building the LSTM model.
+- **yfinance**: Library for fetching historical stock data.
+- **scikit-learn**: Used for scaling the data with **MinMaxScaler**.
+- **NumPy & Pandas**: For data manipulation and processing.
 
-#### Usage
-This function can be utilized within a broader stock forecasting application to generate and visualize future stock price predictions, aiding investors in their decision-making processes based on machine learning insights. The integration of LSTM networks allows the model to capture complex temporal dependencies in the stock price data effectively.
+
+
+
+## Contributing
+
+Feel free to fork this repository, make improvements, and submit pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+This plain text version can be directly copied into your README file. Let me know if you need any further changes!
