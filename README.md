@@ -1,4 +1,3 @@
-Here's a `README.md` template for your project. You can tailor the details if needed:
 
 ```markdown
 # 📈 Stock Forecasting Dashboard
@@ -88,4 +87,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
    pip freeze > requirements.txt
    ```
 
-This should give a comprehensive overview of your project in a clean and organized manner for your GitHub repository.
